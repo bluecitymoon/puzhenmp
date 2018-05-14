@@ -1,0 +1,11 @@
+<!--start.wxml-->
+<view class='container'>
+  <view class='pz_bg1'>
+  </view>
+  <view>
+    <image class='full-screen' src="http://www.puzhenchina.com/images/2.jpg" />
+  </view>
+  <view>
+    <image class='full-screen' src="http://www.puzhenchina.com/images/3.jpg" />
+  </view>
+</view>
