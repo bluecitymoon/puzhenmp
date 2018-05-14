@@ -112,7 +112,7 @@ Page({
           wx.getUserInfo({
             success: userInfoRes => {
 
-              wx.setStorageSync("userInfo", userInfoRes)
+              // wx.setStorageSync("userInfo", userInfoRes)
               this.handleNewOrder(e, userInfoRes)
             }
           })

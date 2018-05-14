@@ -2,7 +2,8 @@
   "pages": [
     "pages/start/start",
     "pages/index/index",
-    "pages/my/index"
+    "pages/my/index",
+    "pages/introduction/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -18,16 +19,16 @@
     "box-shadow": "0 0 6px 0",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/introduction/index",
         "iconPath": "images/nav/home-off.png",
         "selectedIconPath": "images/nav/home-on.png",
-        "text": "首页"
+        "text": "书院"
       },
       {
-        "pagePath": "pages/my/index",
+        "pagePath": "pages/index/index",
         "iconPath": "images/nav/my-off.png",
         "selectedIconPath": "images/nav/my-on.png",
-        "text": "我的"
+        "text": "预约"
       }
     ]
   }

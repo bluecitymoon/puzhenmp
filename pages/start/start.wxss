@@ -217,7 +217,7 @@ swiper-item image {
 }
 
 .pz_bg {
-  background-image: url('http://www.puzhenchina.com/images/1.jpg');
+  background-image: url('http://www.puzhenchina.com/images/welcome.jpg');
   background-repeat:no-repeat; 
   background-size:100% 100%;
 }

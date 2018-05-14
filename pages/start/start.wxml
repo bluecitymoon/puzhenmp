@@ -16,9 +16,9 @@
       </view>
       <view class="bd">
          <!-- <image class="smalltitle" src="/images/ad/pzlogo.png"></image> -->
-        <view type="primary" class="confirm-btn" bindtap='goToIndex'>
-          <text >预约试听课</text>
-        </view>
+        <button open-type="getUserInfo" type="primary" class="confirm-btn" bindtap='goToIndex'>
+          <text>了解我们</text>
+        </button>
       </view>
     </view>
   </block>

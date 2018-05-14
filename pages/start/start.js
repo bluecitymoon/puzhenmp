@@ -18,7 +18,7 @@ Page({
   },
   goToIndex:function(){
     wx.switchTab({
-      url: '/pages/index/index',
+      url: '/pages/introduction/index',
     });
   },
   onLoad:function(options){
