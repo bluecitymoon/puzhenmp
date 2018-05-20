@@ -10,7 +10,8 @@ Page({
     newOrder: {
       marketChannelCategory: null,
       classCategories: []
-    }
+    },
+    birthday: null
   },
 
   onLoad: function (options) {
@@ -19,6 +20,11 @@ Page({
     this.getAllClassCategories()
   },
 
+  bindDateChange: function(e) {
+
+    this.setData({ birthday: e.detail.value})
+    console.log(e.detail.value)
+  },
   interestedCourseChange: function (e) {
     if (!e.detail.value || e.detail.value.length < 1) {
       return
@@ -128,6 +134,7 @@ Page({
   },
 
   handleNewOrder: function (e, userInfoRes) {
+    
     var order = e.detail.value
 
     if (!order.personName) {
@@ -138,6 +145,7 @@ Page({
       })
       return
     }
+
     if (!order.contactPhoneNumber) {
       wx.showModal({
         title: '操作失败',
@@ -152,7 +160,9 @@ Page({
     order.id = null
     order.status = "新单"
     order.agentId = agentId
-
+    if (this.data.birthday) {
+      order.birthday = this.convertLocalDateFromServer(this.data.birthday)
+    }
     wx.request({
       url: app.globalData.baseUrl + '/api/free-class-records',
       method: 'POST',
@@ -166,11 +176,11 @@ Page({
           console.debug(res)
           this.submitUserWechatInfo(res.data, userInfoRes)
 
-          wx.showToast({
-            title: '恭喜您预约成功！',
-            icon: 'success',
-            duration: 2000
-          })
+          // wx.showToast({
+          //   title: '恭喜您预约成功！',
+          //   icon: 'success',
+          //   duration: 2000
+          // })
         } else {
 
           wx.showModal({
@@ -194,7 +204,7 @@ Page({
     wechatuser.iv = storedUser.iv
     wechatuser.id = null
     wechatuser.newOrders = [savedNewOrder]
-
+   
     wx.request({
       url: app.globalData.baseUrl + '/api/new-order-wechat-user-infos/migrate',
       method: 'POST',
@@ -203,8 +213,19 @@ Page({
       },
       data: wechatuser,
       success: (res) => {
-        console.debug(res)
+        wx.navigateTo({
+          url: 'submit-success?pn=' + savedNewOrder.contactPhoneNumber
+        })
       }
     })
+  },
+  convertLocalDateFromServer: function(date) {
+    if(date) {
+      var dateString = date.split('-');
+      var birthday = new Date();
+      birthday.setFullYear(dateString[0], dateString[1] - 1, dateString[2]);
+      return birthday
+    }
+    return null;
   }
 })

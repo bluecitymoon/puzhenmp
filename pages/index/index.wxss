@@ -22,7 +22,7 @@ page{
     /*justify-content: space-between;*/
 }
 .row-wrap .label{
-    width: 200rpx;
+    width: 250rpx;
     color: #000
 }
 .row-wrap .label-right{

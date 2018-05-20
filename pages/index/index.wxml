@@ -13,6 +13,18 @@
                 <input name="contactPhoneNumber" class="input" maxlength="11" type="number" placeholder="请输入手机号"/>
             </view>
         </view>
+        <view class='row-wrap'>
+          <view class='label'>学员出生年月</view>
+          <view class='label-right'>
+              <picker mode="date" value="{{birthday}}" start="1900-01-01" end="2020-09-01" bindchange="bindDateChange">
+                <view class="picker">
+                  <label wx:if="{{birthday}}">{{birthday}}</label>
+                  <label wx:if="{{!birthday}}">请选择</label>
+                </view>
+              </picker>
+          </view>
+          
+        </view>
         <view class='row-wrap' style='height: {{courseHeight}}rpx'>
           <view class='label'>感兴趣的课程</view>
           <view class='label-right'>

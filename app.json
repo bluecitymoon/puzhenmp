@@ -3,7 +3,8 @@
     "pages/start/start",
     "pages/index/index",
     "pages/my/index",
-    "pages/introduction/index"
+    "pages/introduction/index",
+    "pages/index/submit-success"
   ],
   "window": {
     "backgroundTextStyle": "light",
