@@ -11,7 +11,8 @@ Page({
       marketChannelCategory: null,
       classCategories: []
     },
-    birthday: null
+    birthday: null,
+    scheduleDate: null
   },
 
   onLoad: function (options) {
@@ -23,6 +24,12 @@ Page({
   bindDateChange: function(e) {
 
     this.setData({ birthday: e.detail.value})
+    console.log(e.detail.value)
+  },
+
+  bindScheduleDateChange: function (e) {
+
+    this.setData({ scheduleDate: e.detail.value })
     console.log(e.detail.value)
   },
   interestedCourseChange: function (e) {
@@ -160,9 +167,22 @@ Page({
     order.id = null
     order.status = "新单"
     order.agentId = agentId
+    if (!this.data.scheduleDate) {
+      wx.showModal({
+        title: '操作失败',
+        content: '请选择预约日期',
+        showCancel: false
+      })
+      return
+    }
     if (this.data.birthday) {
       order.birthday = this.convertLocalDateFromServer(this.data.birthday)
     }
+    if (this.data.scheduleDate) {
+      order.scheduleDate = this.convertLocalDateFromServer(this.data.scheduleDate)
+    }
+
+    order.sourceType = "WeChat";
     wx.request({
       url: app.globalData.baseUrl + '/api/free-class-records',
       method: 'POST',
@@ -171,9 +191,9 @@ Page({
       },
       data: order,
       success: (res) => {
-
+        console.debug(res)
         if (res.statusCode == 201) {
-          console.debug(res)
+
           this.submitUserWechatInfo(res.data, userInfoRes)
 
           // wx.showToast({
@@ -182,10 +202,15 @@ Page({
           //   duration: 2000
           // })
         } else {
+          var message = "预约失败！";
+
+          if (res.data.detail) {
+            message = res.data.detail;
+          }
 
           wx.showModal({
             title: '提示',
-            content: '预约失败！',
+            content: message,
             showCancel: false
           })
 

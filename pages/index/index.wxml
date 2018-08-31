@@ -14,6 +14,18 @@
             </view>
         </view>
         <view class='row-wrap'>
+
+          <view class='label'>预约日期</view>
+          <view class='label-right'>
+              <picker mode="date" value="{{scheduleDate}}" start="2018-8-31" end="2020-09-01" bindchange="bindScheduleDateChange">
+                <view class="picker">
+                  <label wx:if="{{scheduleDate}}">{{scheduleDate}}</label>
+                  <label wx:if="{{!scheduleDate}}">请选择</label>
+                </view>
+              </picker>
+          </view>
+        </view>
+        <view class='row-wrap'>
           <view class='label'>学员出生年月</view>
           <view class='label-right'>
               <picker mode="date" value="{{birthday}}" start="1900-01-01" end="2020-09-01" bindchange="bindDateChange">
@@ -23,7 +35,6 @@
                 </view>
               </picker>
           </view>
-          
         </view>
         <view class='row-wrap' style='height: {{courseHeight}}rpx'>
           <view class='label'>感兴趣的课程</view>
