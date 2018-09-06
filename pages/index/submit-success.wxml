@@ -6,6 +6,8 @@
         <view class="weui-msg__text-area">
             <view class="weui-msg__title">操作成功</view>
             <view class="weui-msg__desc">您的手机号<b>{{phoneNumber}}</b>已成功预约免费体验课！</view>
+            <view class="weui-msg__title" wx:if="{{giftCode}}">礼物码: {{giftCode}}</view>
+            <view class="weui-msg__desc" wx:if="{{giftCode}}">为方便礼物领取，请截屏保存礼物兑换码</view>
         </view>
         <view class="weui-msg__opr-area">
             <view class="weui-btn-area">

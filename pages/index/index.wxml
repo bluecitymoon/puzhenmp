@@ -17,10 +17,10 @@
 
           <view class='label'>预约日期</view>
           <view class='label-right'>
-              <picker mode="date" value="{{scheduleDate}}" start="2018-8-31" end="2020-09-01" bindchange="bindScheduleDateChange">
+              <picker value="{{scheduleDateIndex}}" bindchange="bindScheduleDateChange" range='{{planLabels}}'>
                 <view class="picker">
-                  <label wx:if="{{scheduleDate}}">{{scheduleDate}}</label>
-                  <label wx:if="{{!scheduleDate}}">请选择</label>
+                  <label wx:if="{{scheduleDateIndex}}">{{plans[scheduleDateIndex].label}}</label>
+                  <label wx:if="{{!scheduleDateIndex}}">请选择</label>
                 </view>
               </picker>
           </view>

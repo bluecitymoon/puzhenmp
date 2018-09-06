@@ -24,10 +24,11 @@ App({
     //   }
     // })
   },
+  //https://mis.puzhenchina.com/
   globalData: {
     userInfo: null,
     code: null,
-    baseUrl: "https://mis.puzhenchina.com/"
+    baseUrl: "https://mis.puzhenchina.com"
   },
   
   getUserInfo: function (cb) {

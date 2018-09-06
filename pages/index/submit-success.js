@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    phoneNumber: ''
+    phoneNumber: '',
+    giftCode: ''
   },
 
   /**
@@ -13,7 +14,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      phoneNumber: options.pn
+      phoneNumber: options.pn,
+      giftCode: options.giftCode
     })
   },
 

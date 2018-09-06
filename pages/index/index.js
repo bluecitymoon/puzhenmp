@@ -2,6 +2,8 @@ var app = getApp()
 Page({
   data: {
     allCourses: [],
+    plans: [],
+    planLabels: [],
     selectedCourses: [],
     channels: [],
     selectedChannel: {},
@@ -12,13 +14,15 @@ Page({
       classCategories: []
     },
     birthday: null,
-    scheduleDate: null
+    scheduleDate: null,
+    scheduleDateIndex: null
   },
 
   onLoad: function (options) {
     // app.getUserInfo()
     this.getAllChannels()
     this.getAllClassCategories()
+    this.getPlans()
   },
 
   bindDateChange: function(e) {
@@ -29,8 +33,17 @@ Page({
 
   bindScheduleDateChange: function (e) {
 
-    this.setData({ scheduleDate: e.detail.value })
-    console.log(e.detail.value)
+    // this.setData({ scheduleDate: e.detail.value })
+    // console.log(e.detail.value)
+    // console.log(this.data.scheduleDateIndex)
+    var selectedIndex = e.detail.value
+    this.setData({
+      scheduleDateIndex: selectedIndex
+    });
+    var selectedPlan = this.data.plans[selectedIndex]
+
+    console.log(selectedPlan)
+    this.setData({ scheduleDate: selectedPlan.scheduleDate})
   },
   interestedCourseChange: function (e) {
     if (!e.detail.value || e.detail.value.length < 1) {
@@ -91,6 +104,27 @@ Page({
           courseHeight: res.data.length * 100
         })
 
+      }
+    })
+  },
+
+  getPlans: function() {
+    wx.request({
+      url: app.globalData.baseUrl + '/api/free-class-records/plans',
+      success: (res) => {
+
+        wx.hideLoading();
+console.log(res.data)
+        this.setData({
+          plans: res.data
+        })
+        var labels = []
+        for (var j = 0; j < this.data.plans.length; j++) {
+          var plan = this.data.plans[j]
+          labels.push(plan.label)
+        }
+
+        this.setData({planLabels: labels})
       }
     })
   },
@@ -179,10 +213,13 @@ Page({
       order.birthday = this.convertLocalDateFromServer(this.data.birthday)
     }
     if (this.data.scheduleDate) {
-      order.scheduleDate = this.convertLocalDateFromServer(this.data.scheduleDate)
+      order.scheduleDate = this.convertInstantToDate(this.data.scheduleDate)
     }
 
     order.sourceType = "WeChat";
+
+    console.log(order)
+    
     wx.request({
       url: app.globalData.baseUrl + '/api/free-class-records',
       method: 'POST',
@@ -230,6 +267,7 @@ Page({
     wechatuser.id = null
     wechatuser.newOrders = [savedNewOrder]
    
+    var giftCode = savedNewOrder.giftCode
     wx.request({
       url: app.globalData.baseUrl + '/api/new-order-wechat-user-infos/migrate',
       method: 'POST',
@@ -239,7 +277,7 @@ Page({
       data: wechatuser,
       success: (res) => {
         wx.navigateTo({
-          url: 'submit-success?pn=' + savedNewOrder.contactPhoneNumber
+          url: 'submit-success?pn=' + savedNewOrder.contactPhoneNumber + '&giftCode=' + giftCode
         })
       }
     })
@@ -252,5 +290,11 @@ Page({
       return birthday
     }
     return null;
+  },
+  convertInstantToDate(instant) {
+
+    var dateString = instant.split('T');
+    return this.convertLocalDateFromServer(dateString[0])
+    
   }
 })
